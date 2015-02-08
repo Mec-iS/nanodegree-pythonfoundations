@@ -13,4 +13,4 @@ Final project for Udacity Python Foundations
 * git clone repository
 * in the repository's directory run:
       
-      python3.3 entertainment_center.py
+      `python3.3 entertainment_center.py`
