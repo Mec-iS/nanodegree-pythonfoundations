@@ -32,7 +32,7 @@ case_dict = {"toy_story": media.Movie("Toy Story",
 }
 
 # Creating Object from dictionary
-showcase = [case_dict[k] for k in case_dict.keys()]
+showcase = [k for k in case_dict.values()]
 
 # Launch Webpage
 fresh_tomatoes.open_page(showcase)

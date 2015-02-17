@@ -143,38 +143,10 @@ def create_tiles_content(showcase):
         # Extract the youtube ID from the url
         youtube_id_match = re.search(r'(?<=v=)[^&#]+', obj.url)
         youtube_id_match = youtube_id_match or re.search(r'(?<=be/)[^&#]+', obj.url)
-        trailer_youtube_id = youtube_id_match.group(0) if youtube_id_match else None
+        obj.trailer_youtube_id = youtube_id_match.group(0) if youtube_id_match else None
 
         # Append the tile for the movie with its content filled in
-        if obj.__class__.__name__ == "Movie":
-            content += tile_content.format(
-                title=obj.title,
-                trailer_youtube_id=trailer_youtube_id,
-                poster_image_url=obj.image_url,
-                color="orange",
-                type=obj.__class__.__name__
-            )
-        elif obj.__class__.__name__ == 'TvSeries':
-            content += tile_content.format(
-                title=obj.title + ' S' + obj.season,
-                trailer_youtube_id=trailer_youtube_id,
-                poster_image_url=obj.image_url,
-                season=obj.season,
-                color="red",
-                type=obj.__class__.__name__
-
-            )
-        elif obj.__class__.__name__ == 'MusicVideo':
-            content += tile_content.format(
-                title=obj.title,
-                trailer_youtube_id=trailer_youtube_id,
-                poster_image_url=obj.image_url,
-                performer=obj.performer,
-                color="blue",
-                type=obj.__class__.__name__
-            )
-        else:
-            raise (Exception("Wrong Class For Webpage"))
+        content += obj.get_content(tile_content=tile_content)
 
     return content
 
