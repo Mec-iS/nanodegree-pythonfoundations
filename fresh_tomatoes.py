@@ -126,15 +126,6 @@ main_page_content = '''
 </html>
 '''
 
-# A single movie entry html template
-tile_content = '''
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <h4 class="{color}">{type}</h4>
-    <img src="{poster_image_url}" width="220" height="342">
-    <h2 style="font-weight: bold;" class="{color}">{title}</h2>
-</div>
-'''
-
 
 def create_tiles_content(showcase):
     # The HTML content for this section of the page
@@ -146,7 +137,7 @@ def create_tiles_content(showcase):
         obj.trailer_youtube_id = youtube_id_match.group(0) if youtube_id_match else None
 
         # Append the tile for the movie with its content filled in
-        content += obj.get_content(tile_content=tile_content)
+        content += obj.get_content()
 
     return content
 

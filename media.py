@@ -14,14 +14,14 @@ class Video(object):
         self.image_url = image_url
         self.trailer_youtube_id = None
 
-    def print_title(self):
-        return "title: " + str(self.title)
-
-    def print_url(self):
-        return "title: " + str(self.title)
-
-    def print_image(self):
-        return "title: " + str(self.image_url)
+        # A single movie entry html template
+        self.tile_content = '''
+        <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+            <h4 class="{color}">{type}</h4>
+            <img src="{poster_image_url}" width="220" height="342">
+            <h2 style="font-weight: bold;" class="{color}">{title}</h2>
+        </div>
+        '''
 
 
 class Movie(Video):
@@ -32,8 +32,8 @@ class Movie(Video):
         super().__init__(title=title, youtube_url=youtube_url, image_url=image_url)
         self.storyline = movie_storyline
 
-    def get_content(self, tile_content):
-        content = tile_content.format(
+    def get_content(self):
+        content = self.tile_content.format(
             title=self.title,
             trailer_youtube_id=self.trailer_youtube_id,
             poster_image_url=self.image_url,
@@ -51,8 +51,8 @@ class TvSeries(Video):
         super().__init__(title, youtube_url, image_url=image_url)
         self.season = season
 
-    def get_content(self, tile_content):
-        content = tile_content.format(
+    def get_content(self):
+        content = self.tile_content.format(
             title=self.title + ' S' + self.season,
             trailer_youtube_id=self.trailer_youtube_id,
             poster_image_url=self.image_url,
@@ -71,8 +71,8 @@ class MusicVideo(Video):
         super().__init__(title, youtube_url, image_url)
         self.performer = performer
 
-    def get_content(self, tile_content):
-        content = tile_content.format(
+    def get_content(self):
+        content = self.tile_content.format(
             title=self.title,
             trailer_youtube_id=self.trailer_youtube_id,
             poster_image_url=self.image_url,
